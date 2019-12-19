@@ -1,12 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react"
+import { render } from "react-dom"
+import { Provider } from "react-redux"
+import { PersistGate } from "redux-persist/lib/integration/react"
+import configureStore from "./redux/configure-store" // CUSTOM configureStore WITH REDUX-PERSIST & REDUX TOOLKIT
+import { BrowserRouter as Router } from "react-router-dom"
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from "./App"
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import "./index.css"
+
+const [store, persistor] = configureStore() // could have just imported but set it up this way in case we ever want to pass an initial state into the configureStore to override the defaults in each feature slice
+
+render(
+  <Provider store={store}>
+    <Router>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Router>
+  </Provider>,
+  document.getElementById("root")
+)
