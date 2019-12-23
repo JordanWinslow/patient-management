@@ -36,7 +36,7 @@ const patientsSlice = createSlice({
       const patientIndex = state.patientData.findIndex(
         patient => patient.id === action.payload.id
       )
-      state.patientData.slice(patientIndex, 1)
+      state.patientData.splice(patientIndex, 1)
     },
     updatePatient(state, action) {
       // not implemented anywhere yet
