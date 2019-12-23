@@ -36,7 +36,7 @@ const patientsSlice = createSlice({
       const patientIndex = state.patientData.findIndex(
         patient => patient.id === action.payload.id
       )
-      delete state.patientData[patientIndex] // this is not the correct logic, we would replace this with logic to remove the patient object from the patientDetails array.
+      state.patientData.slice(patientIndex, 1)
     },
     updatePatient(state, action) {
       // not implemented anywhere yet
